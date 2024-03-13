@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // provider = "postgresql"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Motoqueiro {
+  id       String @id @default(uuid())
+  nome     String
+  nusuario String
+  senha    String
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("motoqueiros") // model singular e tabela plural (dica)
+}
+
+model Cliente {
+  id     String @id @default(uuid())
+  nome   String
+  email  String
+  senha  String
+  cpf    String
+  cep    String
+  rua    String
+  numero String
+  bairro String
+  cidade String
+  uf     String
+
+  pedidos Pedido[]
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("clientes")
+}
+
+model Categoria {
+  id   String @id @default(uuid())
+  nome String
+
+  produtos Produto[]
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("categorias")
+}
+
+model Produto {
+  id         String  @id @default(uuid())
+  nome       String
+  fabricante String?
+  quantidade String
+  preco      Decimal @db.Decimal(9,2)
+  banner     String
+
+  categorias  Categoria @relation(fields: [categoriaId], references: [id])
+  categoriaId String
+
+  itens_pedido Item_pedido[]
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("produtos")
+}
+
+model Item_pedido {
+  id         String @id @default(uuid())
+  quantidade String
+
+  produtos  Produto @relation(fields: [produtoId], references: [id])
+  produtoId String
+
+  pedidos  Pedido @relation(fields: [pedidoId], references: [id])
+  pedidoId String
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("itens_pedido")
+}
+
+model Pedido {
+  id         String   @id @default(uuid())
+  n_pedido   Int
+  valor      Decimal? @db.Decimal(9,2) // ? aceita nulo
+  status     String   @default("Salvo no carrinho")
+  draft      Boolean  @default(true) // para deixa itens salvos no carrinho, cliente ai nao fez o pedido
+  entrega    Boolean  @default(false)
+  entregador String?
+
+  itens_pedido Item_pedido[]
+
+  clientes  Cliente @relation(fields: [clienteId], references: [id])
+  clienteId String
+
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("pedidos")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  nome      String
+  email     String
+  senha     String
+  create_at DateTime? @default(now())
+  update_at DateTime? @default(now())
+
+  @@map("usuarios")
+}

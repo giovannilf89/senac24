@@ -1,0 +1,29 @@
+import React from "react";
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import LoginCli from "./src/Pages/loginCli";
+import Dashboard from "./src/Pages/dashboard";
+import CriarCli from "./src/Pages/criarCli";
+
+const Stack = createNativeStackNavigator()
+
+export default function AppRoutes() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen 
+                name='LoginCli'
+                component={LoginCli}
+                options={{ headerShown: false }}>
+            </Stack.Screen>
+         <Stack.Screen 
+             name='Dashboard'
+             component={Dashboard}
+             options={{ headerShown: false }}>
+         </Stack.Screen>
+         <Stack.Screen 
+             name='CriarCli'
+             component={CriarCli}
+             options={{ headerShown: false }}>
+         </Stack.Screen>
+     </Stack.Navigator>
+    )
+}

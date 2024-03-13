@@ -1,0 +1,9 @@
+.usuario form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input, label {
+    width: 50%;
+}

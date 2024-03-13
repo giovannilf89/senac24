@@ -1,0 +1,24 @@
+.geral {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 2rem;
+}
+
+.prod {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+
+
+.prod img {
+    display: flex;
+    width: 10%;
+}
+
+table, td, th {
+    border: 2px solid black;
+}
