@@ -1,24 +1,28 @@
 import prismaClient from "../../prisma";
 
 interface CriarItemPedido {
-    quantidade: string
+    quantidade: number
     produtoId: string
     pedidoId: string
+    valor: number
 }
 
 
 class CriarItemPedidoServices {
-    async execute ({quantidade, produtoId, pedidoId}: CriarItemPedido){
-        // console.log('service1', quantidade, produtoId, pedidoId)
-        await prismaClient.item_pedido.create({
+    async execute ({quantidade, produtoId, pedidoId, valor}: CriarItemPedido){
+        // console.log('service1', quantidade, produtoId, pedidoId, valor)
+       const resposta = await prismaClient.item_pedido.create({
             data:{
                 quantidade: quantidade,
                 produtoId: produtoId,
-                pedidoId: pedidoId
+                pedidoId: pedidoId,
+                valor
+            },
+            include:{
+                produtos: true
             }
         })
-        // console.log('service2', quantidade, produtoId, pedidoId)
-        return {dados: 'Cadastro efetuado com sucesso'}
+        return resposta
     }
 }
 

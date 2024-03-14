@@ -12,12 +12,13 @@ class CriarPedidoServices {
             data: {
                 clienteId
             },
-            select:{
-                n_pedido: true,
+            include: {
+                clientes: true
             }
+
         })
         // console.log(n_pedido, valor, clienteId)
-        return {dados: "Pedido cadastrado com sucesso"}
+        return resposta
     }
 
 }

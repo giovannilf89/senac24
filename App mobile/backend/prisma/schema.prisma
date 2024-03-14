@@ -61,7 +61,7 @@ model Produto {
   nome       String
   fabricante String?
   quantidade String
-  preco      Decimal @db.Decimal(9,2)
+  preco      Decimal @db.Decimal(9, 2)
   banner     String
 
   categorias  Categoria @relation(fields: [categoriaId], references: [id])
@@ -76,8 +76,9 @@ model Produto {
 }
 
 model Item_pedido {
-  id         String @id @default(uuid())
-  quantidade String
+  id         String  @id @default(uuid())
+  quantidade Int
+  valor      Decimal @db.Decimal(9, 2)
 
   produtos  Produto @relation(fields: [produtoId], references: [id])
   produtoId String
@@ -94,7 +95,7 @@ model Item_pedido {
 model Pedido {
   id         String   @id @default(uuid())
   n_pedido   Int      @unique @default(autoincrement())
-  valor      Decimal? @db.Decimal(9,2) // ? aceita nulo
+  valor      Decimal? @db.Decimal(9, 2) // ? aceita nulo
   status     String   @default("Salvo no carrinho")
   draft      Boolean  @default(true) // para deixa itens salvos no carrinho, cliente ai nao fez o pedido
   entrega    Boolean  @default(false)
