@@ -16,7 +16,6 @@ import { CriarMotoqueiroController } from './Controller/Motoqueiros/CriarMotoque
 import { LoginMotoController } from './Controller/Motoqueiros/LoginMotoqueirosController'
 import { CriarItemPedidoController } from './Controller/item_pedido/CriarItemPedidoController'
 import { CriarPedidoController } from './Controller/Pedido/CriarPedidoController'
-import { EditarItemPedidoController } from './Controller/item_pedido/EditarItemPedidoController'
 import { DeletarItemPedidoController } from './Controller/item_pedido/DeletarItemPedidoController'
 import { CriarUsuarioController } from './Controller/usuarios/CriarUsuarioController'
 import { ListarUsuariosController } from './Controller/usuarios/ListarUsuarioController'
@@ -33,7 +32,7 @@ import { EditarProdutoController } from './Controller/Produtos/EditarProdutoCont
 import { ListarProdutoUnicoController } from './Controller/Produtos/ListarProdutoUnicoController'
 import { DeletarProdutosService } from './Services/Produtos/DeletarProdutosServices'
 import { DeletarProdutosController } from './Controller/Produtos/DeletarProdutosController'
-import { ListarItemPedidoController } from './Controller/item_pedido/ListarItemPedidoController'
+import { ListarProdutosCategoriaController } from './Controller/Pedido/ListarProdutosCategoriaController'
 
 const router = Router()
 const upload = multer(uploadConfig.upload('./tmp'))
@@ -70,12 +69,10 @@ export { router }
 
 //Estutura Pedido
 router.post('/CriarPedido', new CriarPedidoController().handle)
-
-//Estrutura Item_pedido
 router.post('/CriarItemPedido', new CriarItemPedidoController().handle)
-router.put('/EditarItemPedido', new EditarItemPedidoController().handle)
+router.get('/ListarProdutosCategoria/:id', new ListarProdutosCategoriaController().handle )
 router.delete('/DeletarItemPedido', new DeletarItemPedidoController().handle)
-router.get('/ListarItemPedido', new ListarItemPedidoController().handle)
+
 
 //Estrutura Usuarios 
 router.post("/CriarUsuarios", new CriarUsuarioController().handle);
