@@ -15,6 +15,7 @@ export default function CadPedido() {
     const [quantidadeF, setQuantidadeF] = useState('')
     const [idItemProduto, setIdItemProduto] = useState('')
     const [itensPedido, setItensPedido] = useState([''])
+    const [valorTotal, setValorTotal] = useState('')
 
     const [modalAberto, setModalAberto] = useState(false)
 
@@ -68,8 +69,16 @@ export default function CadPedido() {
     }
 
     function fecharModal() {
+        // try{
+        //     const id = pedidos.id
+        //     const resposta = await apiBack.put(`/FinalizarPedido/${id}`)
+        
+        // console.log(resposta)
         setModalAberto(false)
-    }
+    // } catch(err){
+    //     console.log(err)
+    // }
+}
 
     async function handleItemPedido(e) {
         try {
@@ -87,6 +96,7 @@ export default function CadPedido() {
                 valor
             })
             let dados = {
+                id: resposta.data.id,
                 produto: resposta.data.produtos.nome,
                 quantidade: resposta.data.quantidade,
                 valor: Number(resposta.data.valor) // number pq estava vindo como string
@@ -98,11 +108,32 @@ export default function CadPedido() {
             toast.success('Produto adicionado com sucesso')
             // console.log(resposta.data)
         } catch (err) {
-            console.log(err)
+           toast.error(err.response.data.error)
         }
     }
     // console.log('itensPedido',itensPedido) // ver o que esta sendo salvo no oldarray
 
+    async function handleApagarItem(id){
+        try{
+            await apiBack.delete(`/DeletarItemPedido/${id}`)
+            setItensPedido(itensPedido.filter((item) => item.id !== id))
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        try{
+            async function somarItensPedido(){
+                const id = pedidos.id
+                const resposta = await apiBack.get(`/SomarItensPedido/${id}`)
+                setValorTotal(resposta.data)
+            }
+            somarItensPedido()
+        } catch (err){
+            console.log(err)
+        }
+    }, [itensPedido])
 
     console.log(pedidos)
     return (
@@ -165,12 +196,16 @@ export default function CadPedido() {
                         {itensPedido.map((item) => {
                             return (
                                 <>
+                                <div className='buttonApagar'>
                                     {item.length !== 0 && ( // não mostrar o array vazio (--) dois tracos em cima dos itens
-                                        <h2>{item.produto} - {item.quantidade} - {item.valor}</h2>
+                                        <><h2>{item.produto} - {item.quantidade} - {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(`${item.valor}`)}</h2>
+                                        <button onClick={() => handleApagarItem(item.id)}>Apagar</button></>
                                     )}
+                                    </div>
                                 </>
                             )
                         })}
+                        <h1>Valor total: {new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(`${valorTotal}`)}</h1>
                     </>
                     <button onClick={fecharModal}>Fechar</button>
 
