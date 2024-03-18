@@ -4,11 +4,11 @@ import { DeletarItemPedidoServices } from '../../Services/item_pedido/DeletarIte
 
 class DeletarItemPedidoController {
     async handle(req: Request, res: Response) {
-        const { remove } = req.body
+        const { id } = req.params
 
         const deletarItemPedido = new DeletarItemPedidoServices()
         const deletar = await deletarItemPedido.execute({
-            remove,
+            id
         })
         return res.json(deletar)
     }

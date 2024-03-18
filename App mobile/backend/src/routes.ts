@@ -33,6 +33,7 @@ import { ListarProdutoUnicoController } from './Controller/Produtos/ListarProdut
 import { DeletarProdutosService } from './Services/Produtos/DeletarProdutosServices'
 import { DeletarProdutosController } from './Controller/Produtos/DeletarProdutosController'
 import { ListarProdutosCategoriaController } from './Controller/Pedido/ListarProdutosCategoriaController'
+import { SomarPedidoController } from './Controller/Pedido/SomarPedidoController'
 
 const router = Router()
 const upload = multer(uploadConfig.upload('./tmp'))
@@ -71,8 +72,8 @@ export { router }
 router.post('/CriarPedido', new CriarPedidoController().handle)
 router.post('/CriarItemPedido', new CriarItemPedidoController().handle)
 router.get('/ListarProdutosCategoria/:id', new ListarProdutosCategoriaController().handle )
-router.delete('/DeletarItemPedido', new DeletarItemPedidoController().handle)
-
+router.delete('/DeletarItemPedido/:id', new DeletarItemPedidoController().handle)
+router.get('/SomarItensPedido/:id', new SomarPedidoController().handle)
 
 //Estrutura Usuarios 
 router.post("/CriarUsuarios", new CriarUsuarioController().handle);
