@@ -34,6 +34,7 @@ import { DeletarProdutosService } from './Services/Produtos/DeletarProdutosServi
 import { DeletarProdutosController } from './Controller/Produtos/DeletarProdutosController'
 import { ListarProdutosCategoriaController } from './Controller/Pedido/ListarProdutosCategoriaController'
 import { SomarPedidoController } from './Controller/Pedido/SomarPedidoController'
+import { ListarUsuarioTokenController } from './Controller/usuarios/ListarUsuarioTokenController'
 
 const router = Router()
 const upload = multer(uploadConfig.upload('./tmp'))
@@ -94,3 +95,4 @@ router.put(
     new AlterarUsuarioController().handle
 );
 router.post("/AutenticaUsuario", new AutenticaUsuarioController().handle);
+router.get('/ListarUsuarioToken', isAutenticado, new ListarUsuarioTokenController().handle)

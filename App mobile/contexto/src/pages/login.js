@@ -1,12 +1,15 @@
 import { useState, useContext } from 'react'
 import { Contexts } from '../Contexts/Contexts'
 import { toast } from 'react-toastify'
+import {useNavigate} from 'react-router-dom'
 
 export default function Login() {
 
     const { handleLogar } = useContext(Contexts)
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    
+    const navigation = useNavigate()
 
     async function handleLogin(e) {
         try {
@@ -19,7 +22,7 @@ export default function Login() {
             }
             await handleLogar(email, senha)
         } catch (err) {
-            console.log(err)
+            console.log('erro',err)
         }
     }
 
