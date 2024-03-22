@@ -1,15 +1,31 @@
-import { useEffect, useState } from 'react'
-import { StatusBar, StyleSheet, Text, TouchableOpacity, SafeAreaView, TextInput } from 'react-native'
+import { useState } from 'react'
+import { StatusBar, StyleSheet, Text, TouchableOpacity, SafeAreaView, TextInput, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import ApiDental from '../services/apiDental'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [nome, setNome] = useState('')
 
     const navigation = useNavigation()
 
     async function handleLogin() {
-       console.log(email,senha)
+        try {
+            const resposta = await ApiDental.post('/LoginUsuario', {
+                email,
+                senha
+            })
+
+            await AsyncStorage.setItem('@nome', JSON.stringify(resposta.data.nome))
+            navigation.navigate('Dashboard')
+            setEmail('')
+            setSenha('')
+        } catch (error) {
+            alert(error.response.data)
+        }
 
     }
 
@@ -28,6 +44,7 @@ export default function Login() {
 
             <Text>Senha:</Text>
             <TextInput
+                type="password"
                 style={styles.input}
                 placeholder='Digite sua senha'
                 value={senha}

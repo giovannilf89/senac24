@@ -11,7 +11,6 @@ interface AuthUserLogin {
 
 class AuthUserService {
     async execute({ email, senha }: AuthUserLogin) {
-
         const user = await prismaClient.client.findFirst({
             where: {
                 email: email
@@ -38,6 +37,7 @@ class AuthUserService {
         )
         return {
             id: user.id,
+            nome: user.name,
             email: user.email,
             token: token
         }

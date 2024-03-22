@@ -2,6 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Login from './src/pages/loginUser'
+import Dashboard from './src/pages/dashboard'
 
 const Stack = createNativeStackNavigator()
 
@@ -13,7 +14,12 @@ export default function AppRoutes() {
                 component={Login}
                 options={{ headerShown: false }}
             >
-
+            </Stack.Screen>
+            <Stack.Screen
+                name='Dashboard'
+                component={Dashboard}
+                options={{ headerShown: false }}
+            >
             </Stack.Screen>
         </Stack.Navigator>
     )
