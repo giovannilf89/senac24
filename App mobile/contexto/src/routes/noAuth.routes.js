@@ -6,6 +6,7 @@ export default function NoAuthRoutes() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Login />} />
+                <Route path='*' element={<Login />} /> 
             </Routes>
         </BrowserRouter>
     )

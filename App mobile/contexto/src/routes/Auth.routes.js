@@ -8,8 +8,11 @@ export default function AuthRoutes() {
             <Routes>
                 <Route path='/' element={<Dashboard />} />
                 <Route path='/Produtos' element={<Produtos />} />
+                <Route path='*' element={<Dashboard />} />
             </Routes>
         </BrowserRouter>
     )
 }
+
+// * no path se cair em um rota que nao existe, manda para dashboard
 
