@@ -2,14 +2,15 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCSaAPnGrIptu5_2ISE-SOK-cqpxe8Pnsg",
-    authDomain: "uc13lancheteria.firebaseapp.com",
-    projectId: "uc13lancheteria",
-    storageBucket: "uc13lancheteria.appspot.com",
-    messagingSenderId: "122710385042",
-    appId: "1:122710385042:web:e6648f26655dc79632614b",
-    measurementId: "G-GX9WG32GMY"
-  };
+  apiKey: "AIzaSyDYkra2VtD1xNQAjXknyajb5XSOlOef9Ko",
+  authDomain: "lancheterianovo.firebaseapp.com",
+  projectId: "lancheterianovo",
+  storageBucket: "lancheterianovo.appspot.com",
+  messagingSenderId: "292056728413",
+  appId: "1:292056728413:web:f19feaea2003e938115eb4",
+  measurementId: "G-YLN6NHTPL4"
+};
+
   
 
 if('firebase.appss.length'){
