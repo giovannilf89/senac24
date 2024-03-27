@@ -10,10 +10,11 @@ export default function Dashboard() {
 
 
   const [user, setUser] = useState('')
-  const [pedido, setPedido] = useState('')
+  const [pedidoS, setPedidoS] = useState('')
   const [id, setId] = useState('')
   const [localizacao, setLocalizacao] = useState(null)
 
+  const [dados, setDados] = useState('')
   const [modalVisible, setModalVisible] = useState(false);
 
   // Identificação do Motoqueiro
@@ -26,7 +27,7 @@ export default function Dashboard() {
         const { granted } = await requestForegroundPermissionsAsync();
         if (granted) {
           const positionAtual = await getCurrentPositionAsync();
-          console.log("Position atual:", positionAtual); // Adicione este log para debug
+          // console.log("Position atual:", positionAtual); // Adicione este log para debug
 
           // Extrair latitude e longitude
           const { latitude, longitude } = positionAtual.coords;
@@ -45,7 +46,7 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    console.log("Localizacao no estado:", localizacao);
+    // console.log("Localizacao no estado:", localizacao);
   }, [localizacao]);
 
 
@@ -70,9 +71,6 @@ export default function Dashboard() {
     handleId()
   })
 
-  async function handlePedido() {
-    alert('clicou')
-  }
 
   async function handleRota() {
     let moto = await firebase.database().ref('motoqueiros')
@@ -87,10 +85,12 @@ export default function Dashboard() {
 
   async function buscarPedido() {
     setModalVisible(true)
-    const resposta = await apiLocal.post('/ListarPedidoUnico',{
+    const pedido = Number(pedidoS)
+    const resposta = await apiLocal.post('/ListarPedidoUnico', {
       pedido
     })
-    console.log(resposta)
+    setDados(resposta)
+    console.log(dados)
   }
 
   return (
@@ -103,8 +103,8 @@ export default function Dashboard() {
       <TextInput
         style={styles.input}
         placeholder='Digite numero do pedido..'
-        value={pedido}
-        onChangeText={setPedido}
+        value={pedidoS}
+        onChangeText={setPedidoS}
       ></TextInput>
 
       <TouchableOpacity style={styles.button} onPress={() => buscarPedido()}>
