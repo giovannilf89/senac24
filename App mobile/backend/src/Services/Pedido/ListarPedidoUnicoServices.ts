@@ -10,14 +10,8 @@ class ListarPedidoUnicoServices {
             where: {
                 n_pedido: pedido,
             },
-            select: {
-                n_pedido: true,
-                valor: true,
-                clientes: {
-                    select: {
-                        nome: true
-                    }
-                }
+            include: {
+                clientes: true,
             }
         })
         return resposta
