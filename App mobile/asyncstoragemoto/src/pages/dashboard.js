@@ -71,7 +71,7 @@ export default function Dashboard() {
         setDados([]); // Limpa os dados se nenhum pedido for encontrado
         setNoPedidoMsg("Nenhum pedido encontrado.");
         setModalVisible(true);
-        
+
       }
     } catch (error) {
       console.error("Erro ao buscar pedido:", error.message);

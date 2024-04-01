@@ -1,7 +1,7 @@
 import prismaClient from "../../prisma";
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
-import { AuthDentistController } from "../../controller/dentist/authDentistController";
+
 
 interface AuthUserLogin {
     email: string
