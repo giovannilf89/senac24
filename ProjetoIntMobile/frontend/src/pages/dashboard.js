@@ -20,8 +20,13 @@ export default function Dashboard() {
   async function handleLogoff() {
     await AsyncStorage.removeItem("@nome");
     setUser('')
-    navigation.navigate("Login");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
   }
+
+  console.log
 
   return (
     <SafeAreaView style={styles.container}>
