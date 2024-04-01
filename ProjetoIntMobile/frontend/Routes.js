@@ -1,26 +1,32 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import Login from './src/pages/loginUser'
 import Dashboard from './src/pages/dashboard'
+import CadUser from './src/pages/createUser'
 
-const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator();
 
 export default function AppRoutes() {
     return (
-        <Stack.Navigator>
-            <Stack.Screen
+        <Drawer.Navigator>
+            <Drawer.Screen
                 name='Login'
                 component={Login}
                 options={{ headerShown: false }}
             >
-            </Stack.Screen>
-            <Stack.Screen
+            </Drawer.Screen>
+            <Drawer.Screen
+                name='CadUser'
+                component={CadUser}
+                options={{ headerShown: false }}
+            >
+            </Drawer.Screen>
+            <Drawer.Screen
                 name='Dashboard'
                 component={Dashboard}
                 options={{ headerShown: false }}
             >
-            </Stack.Screen>
-        </Stack.Navigator>
+            </Drawer.Screen>
+        </Drawer.Navigator>
     )
 }

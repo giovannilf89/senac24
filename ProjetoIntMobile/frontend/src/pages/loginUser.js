@@ -1,32 +1,37 @@
 import { useState } from 'react'
-import { StatusBar, StyleSheet, Text, TouchableOpacity, SafeAreaView, TextInput, Alert } from 'react-native'
+import { StatusBar, StyleSheet, Text, TouchableOpacity, SafeAreaView, TextInput} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import ApiDental from '../services/apiDental'
+import apiDental from '../services/apiDental'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
-    const [nome, setNome] = useState('')
 
     const navigation = useNavigation()
 
     async function handleLogin() {
         try {
-            const resposta = await ApiDental.post('/LoginUsuario', {
-                email,
-                senha
-            })
+          const resposta = await apiDental.post('/LoginUsuario', {
+            email,
+            senha
+          })
+            
 
             await AsyncStorage.setItem('@nome', JSON.stringify(resposta.data.nome))
             navigation.navigate('Dashboard')
             setEmail('')
             setSenha('')
         } catch (error) {
-            alert(error.response.data)
+            alert(error.response.data.error)
         }
 
+
+    }
+
+    function handleCadastrar(){
+        navigation.navigate('CadUser')
     }
 
     return (
@@ -44,7 +49,7 @@ export default function Login() {
 
             <Text>Senha:</Text>
             <TextInput
-                type="password"
+                secureTextEntry={true}
                 style={styles.input}
                 placeholder='Digite sua senha'
                 value={senha}
@@ -53,6 +58,12 @@ export default function Login() {
 
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text>Logar</Text>
+            </TouchableOpacity>
+
+            <Text>Novo por aqui? Crie seu cadastro</Text>
+
+            <TouchableOpacity style={styles.button} onPress={handleCadastrar}>
+                <Text>Cadastrar</Text>
             </TouchableOpacity>
         </SafeAreaView>
     )
