@@ -4,7 +4,7 @@ import { CriarPedidoServices } from '../../Services/Pedido/CriarPedidoServices'
 class CriarPedidoController {
     async handle(req: Request, res: Response) {
         const { clienteId } = req.body
-        // console.log(req.body)
+        // console.log('controller',req.body)
 
         // const valor = valor_total.toFixed(2)
 

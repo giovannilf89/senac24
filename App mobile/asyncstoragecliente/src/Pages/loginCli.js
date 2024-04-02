@@ -23,7 +23,8 @@ export default function LoginCli() {
             })
             // console.log(resposta)
             await AsyncStorage.setItem('@nome', JSON.stringify(resposta.data.nome))
-
+            await AsyncStorage.setItem('@id', JSON.stringify(resposta.data.id))
+            
             navigation.navigate('Dashboard')
 
             setEmail('') // limpa campo apos login

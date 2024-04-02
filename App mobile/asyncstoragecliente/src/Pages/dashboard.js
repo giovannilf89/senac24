@@ -1,20 +1,24 @@
-import { SafeAreaView, StatusBar, Text, StyleSheet, View } from 'react-native'
+import { SafeAreaView, StatusBar, Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react';
-import {useState} from 'react'
+import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from '../../FireBaseConnect'
+import { useNavigation } from '@react-navigation/native';
+import apiLocal from '../../apiLocal';
 
 
 export default function Dashboard() {
 
+    const [clienteId, setClienteId] = useState('')
     const [user, setUser] = useState('')
     const [latitudeFb, setLatituteFb] = useState('')
     const [longitudeFb, setLongitudeFb] = useState('')
+    const [pedido, setPedido] = useState('')
 
-    
+    const navigation = useNavigation()
 
     useEffect(() => {
-        async function acompanhamentoPedido(){
+        async function acompanhamentoPedido() {
             await firebase.database().ref('motoqueiros').on('value', (snapshot) => { //snapshot funcao anonima para armazenar os dados consultados (nome convencao)
                 snapshot?.forEach((item) => { // loop para consultar os valores e armazena item
                     let data = { // armazena os dados colhidos
@@ -26,7 +30,7 @@ export default function Dashboard() {
                     setLatituteFb(data.latitude)
                     setLongitudeFb(data.longitude)
                     // setMotoqueiros(oldArray => [...oldArray, data])
-                    console.log(data)
+                    // console.log(data)
                 })
             })
         }
@@ -43,6 +47,35 @@ export default function Dashboard() {
         }
         handleName()
     })
+
+
+
+    useEffect(() => {
+        async function getId() {
+            const id = await AsyncStorage.getItem('@id')
+            const token = JSON.parse(id)
+            setClienteId(token)
+        }
+        getId()
+    }, [clienteId])
+
+
+
+
+    async function handlePedido() {
+        try {
+            const resposta = await apiLocal.post('/CriarPedido', {
+                clienteId
+            })
+            setPedido(resposta)
+            await AsyncStorage.setItem('@idpedido', JSON.stringify(resposta.data.n_pedido))
+        } catch (error) {
+            console.log(error)
+        }
+
+
+        navigation.navigate('CriarItensPedido')
+    }
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="auto" />
@@ -55,6 +88,10 @@ export default function Dashboard() {
                 <Text style={styles.text}>Latitute: {longitudeFb}</Text>
                 <Text style={styles.text}>Longitude: {latitudeFb}</Text>
             </View>
+
+            <TouchableOpacity style={styles.button} onPress={handlePedido}>
+                <Text>Efetuar Pedido</Text>
+            </TouchableOpacity>
 
         </SafeAreaView>
     )
@@ -75,5 +112,12 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
+    },
+    button: {
+        borderWidth: 1,
+        width: 100,
+        alignItems: 'center',
+
     }
+
 })
