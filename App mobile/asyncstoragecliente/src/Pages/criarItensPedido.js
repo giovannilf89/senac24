@@ -21,6 +21,8 @@ export default function CriarItensPedido() {
   const [produtosCategoria, setProdutosCategoria] = useState([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState("");
   const [quantidadeF, setQuantidadeF] = useState("");
+  const [idItemProduto, setIdItemProduto] = useState('')
+
 
   useEffect(() => {
     async function getPedidoId() {
@@ -86,7 +88,6 @@ export default function CriarItensPedido() {
       );
       const valor = Number(prodExt.map((item) => item.preco) * quantidadeF);
       const quantidade = Number(quantidadeF);
-      const pedidoId = pedidos.id;
       const produtoId = idItemProduto;
 
 
@@ -104,7 +105,7 @@ export default function CriarItensPedido() {
       };
       setItensPedido((oldArray) => [...oldArray, dados]);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
     }
   }
 
@@ -137,10 +138,10 @@ export default function CriarItensPedido() {
         <>
           <Text>Selecionar produto</Text>
           <Picker
-            selectedValue={produtoSelecionado}
+            selectedValue={idItemProduto}
             style={{ height: 50, width: 200 }}
             onValueChange={(itemValue, itemIndex) =>
-              setProdutoSelecionado(itemValue)
+              setIdItemProduto(itemValue)
             }
           >
             <Picker.Item label="Selecione um produto" value="" />
