@@ -12,13 +12,15 @@ import AlterarUsuario from "./pages/usuario/AlterarUsuario";
 import AlterarCliente from "./pages/cliente/AlterarCliente";
 import AlterarProduto from "./pages/produto/AlterarProduto";
 import CadPedido from "./pages/pedido/CadPedido";
+import Cozinha from './pages/cozinha/Cozinha'
+
 
 export default function Rotas() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-      <Route path="/" element={<Logar />} />
+        <Route path="/" element={<Logar />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/CadUsuario" element={<CadUsuario />} />
         <Route path="/CadCliente" element={<CadCliente />} />
@@ -30,6 +32,7 @@ export default function Rotas() {
         <Route path="/AlterarCliente/:id" element={<AlterarCliente />} />
         <Route path="/AlterarProduto/:id" element={<AlterarProduto />} />
         <Route path="/CadPedido" element={<CadPedido />} />
+        <Route path='/Cozinha' element={<Cozinha />} />
       </Routes>
     </BrowserRouter>
   );

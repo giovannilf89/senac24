@@ -5,6 +5,7 @@ export default function Header() {
   return (
     <h1 className="header">
       <Link to="/Dashboard">Dashboard</Link>
+      <Link to='/Cozinha'>Cozinha</Link>
       <Link to="/CadUsuario">Cadastro Usuario</Link>
       <Link to="/CadCliente">Cadastro Cliente</Link>
       <Link to="/CadProduto">Cadastro Produto</Link>

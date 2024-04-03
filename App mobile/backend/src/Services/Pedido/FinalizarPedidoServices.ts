@@ -13,8 +13,8 @@ async execute({id, draft, aceito}: FinalizarPedido){
             id: id
         },
         data:{
-            draft: draft,
-            aceito: aceito
+            draft: false,
+            aceito: true
         }
     })
     return {dados: 'Alterado com sucesso'}

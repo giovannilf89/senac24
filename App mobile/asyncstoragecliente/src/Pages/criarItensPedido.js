@@ -11,6 +11,7 @@ import {
 import apiLocal from "../../apiLocal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CriarItensPedido() {
   const [pedidoId, setPedidoId] = useState("");
@@ -21,30 +22,29 @@ export default function CriarItensPedido() {
   const [produtosCategoria, setProdutosCategoria] = useState([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState("");
   const [quantidadeF, setQuantidadeF] = useState("");
-  const [idItemProduto, setIdItemProduto] = useState('')
+  const [idItemProduto, setIdItemProduto] = useState("");
+  const [idNpedido, setIdnPedido] = useState("");
+  const [itensPedido, setItensPedido] = useState([]);
+  const [valorTotal, setValorTotal] = useState(0); // Added state for total value
 
 
-  useEffect(() => {
-    async function getPedidoId() {
-      const idp = await AsyncStorage.getItem("@idpedido");
-      const pedidoId = JSON.parse(idp);
-      setPedidoId(pedidoId);
-    }
-    getPedidoId();
-  }, []);
+  const navigation = useNavigation()
 
   useEffect(() => {
-    async function handleName() {
-      const iNome = await AsyncStorage.getItem("@nome");
-      const nome = JSON.parse(iNome);
-      setUser(nome);
-    }
-    handleName();
-  }, []);
-
-  useEffect(() => {
-    async function LerCategorias() {
+    async function fetchData() {
       try {
+        const idp = await AsyncStorage.getItem("@idpedido");
+        const idNpedido = JSON.parse(idp);
+        setIdnPedido(idNpedido);
+
+        const completo = await AsyncStorage.getItem("@idpedidocompleto");
+        const pedidoId = JSON.parse(completo);
+        setPedidoId(pedidoId);
+
+        const iNome = await AsyncStorage.getItem("@nome");
+        const nome = JSON.parse(iNome);
+        setUser(nome);
+
         const resposta = await apiLocal.get("/ListarCategorias");
         setCategorias(resposta.data);
         setIsLoading(false);
@@ -53,7 +53,7 @@ export default function CriarItensPedido() {
         setIsLoading(false);
       }
     }
-    LerCategorias();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -73,30 +73,20 @@ export default function CriarItensPedido() {
     lerProdutosCategoria();
   }, [categoriaId]);
 
-  if (isLoading) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </SafeAreaView>
-    );
-  }
-
   async function handleItemPedido() {
     try {
-      const prodExt = produtosCategoria.filter(
-        (item) => item.id === idItemProduto
-      );
-      const valor = Number(prodExt.map((item) => item.preco) * quantidadeF);
+      const prodExt = produtosCategoria.find((item) => item.id === idItemProduto);
+      const valorItem = Number(prodExt.preco) * quantidadeF;
       const quantidade = Number(quantidadeF);
       const produtoId = idItemProduto;
-
-
+  
       const resposta = await apiLocal.post("/CriarItemPedido", {
         produtoId,
         pedidoId,
         quantidade,
-        valor,
+        valor: valorItem,
       });
+  
       let dados = {
         id: resposta.data.id,
         produto: resposta.data.produtos.nome,
@@ -104,19 +94,60 @@ export default function CriarItensPedido() {
         valor: Number(resposta.data.valor),
       };
       setItensPedido((oldArray) => [...oldArray, dados]);
+      setValorTotal((prevTotal) => prevTotal + valorItem); // Update total value
     } catch (error) {
       console.log(error.response.data.error);
+    }
+  }
+  
+
+  async function handleApagarItem(id) {
+    try {
+      await apiLocal.delete(`/DeletarItemPedido/${id}`);
+      setItensPedido(itensPedido.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log(error.response.data.error);
+    }
+  }
+
+  useEffect(() => {
+    async function somarItensPedido() {
+      try {
+        const id = pedidoId.id;
+        const resposta = await apiLocal.get(`/SomarItensPedido/${id}`);
+        setValorTotal(resposta.data.total);
+      } catch (error) {
+        console.log("Error fetching total value:", error);
+      }
+    }
+  
+    somarItensPedido();
+  
+  }, [pedidoId, itensPedido]);
+
+  async function FinalizarPedido(){
+    try {
+      const id = pedidoId
+      const draft = false
+      const aceito = false
+      const resposta = await apiLocal.put('/FinalizarPedido', {
+        id,
+        draft,
+        aceito
+      })
+      navigation.navigate('Dashboard')
+    } catch (error) {
+      console.log(error.response.data.error)
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <Text>Pedido N:{pedidoId}</Text>
+      <Text>Pedido N:{idNpedido}</Text>
       <Text>Nome: {user}</Text>
       <Text>Itens do Pedido</Text>
 
-      {/* Dropdown de categorias */}
       <Text>Selecionar categoria</Text>
       <Picker
         selectedValue={categoriaId}
@@ -133,7 +164,6 @@ export default function CriarItensPedido() {
         ))}
       </Picker>
 
-      {/* Dropdown de produtos */}
       {produtosCategoria.length > 0 && (
         <>
           <Text>Selecionar produto</Text>
@@ -159,9 +189,36 @@ export default function CriarItensPedido() {
             value={quantidadeF}
           />
           <TouchableOpacity onPress={handleItemPedido}>
-            <Text>Adicionar ao Pedido</Text>
+            <Text>Adicionar Produto</Text>
           </TouchableOpacity>
         </>
+      )}
+      {itensPedido.map((item) => (
+        <React.Fragment key={item.id}>
+          {item.length !== 0 && (
+            <>
+              <Text>
+                {item.produto} - {item.quantidade} -{" "}
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(`${item.valor}`)}
+              </Text>
+              <TouchableOpacity onPress={() => handleApagarItem(item.id)}>
+                <Text>Apagar</Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </React.Fragment>
+      ))}
+      {itensPedido.length > 0 && (
+        <><Text>
+          Valor total:{" "}
+          {new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(valorTotal)}
+        </Text><TouchableOpacity onPress={FinalizarPedido}><Text>Finalizar Pedido</Text></TouchableOpacity></>
       )}
     </SafeAreaView>
   );

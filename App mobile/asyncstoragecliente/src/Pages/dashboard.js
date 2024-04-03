@@ -69,6 +69,7 @@ export default function Dashboard() {
             })
             setPedido(resposta)
             await AsyncStorage.setItem('@idpedido', JSON.stringify(resposta.data.n_pedido))
+            await AsyncStorage.setItem('@idpedidocompleto', JSON.stringify(resposta.data.id))
         } catch (error) {
             console.log(error)
         }
