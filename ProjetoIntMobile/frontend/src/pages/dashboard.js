@@ -2,6 +2,8 @@ import { StatusBar, StyleSheet, Text, SafeAreaView, TouchableOpacity } from "rea
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import CreateSchedule from "./createSchedule";
+
 
 export default function Dashboard() {
   const [user, setUser] = useState("");
@@ -32,6 +34,11 @@ export default function Dashboard() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Text>Seja bem-vindo, {user}</Text>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Schedule')}>
+        <Text>Agende sua consulta!</Text>
+      </TouchableOpacity>
+
 
       <TouchableOpacity style={styles.button} onPress={handleLogoff}>
         <Text>Sair</Text>
