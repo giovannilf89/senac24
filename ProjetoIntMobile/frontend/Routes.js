@@ -29,7 +29,7 @@ export default function AppRoutes() {
             >
             </Drawer.Screen>
             <Drawer.Screen
-            name='Schedule'
+            name='CreateSchedule'
             component={CreateSchedule}
             options={{ headerShown: false}}
             >

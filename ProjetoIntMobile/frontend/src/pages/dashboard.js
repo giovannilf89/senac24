@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CreateSchedule from "./createSchedule";
 
-
 export default function Dashboard() {
   const [user, setUser] = useState("");
 
@@ -17,28 +16,29 @@ export default function Dashboard() {
       setUser(nome);
     }
     handleName();
-  }, [user]);
+  }, []); // Remova user do array de dependências
 
   async function handleLogoff() {
     await AsyncStorage.removeItem("@nome");
-    setUser('')
+    setUser('');
     navigation.reset({
       index: 0,
       routes: [{ name: 'Login' }],
     });
   }
 
-  console.log
+  function redirect() {
+    navigation.navigate("CreateSchedule");
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Text>Seja bem-vindo, {user}</Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Schedule')}>
+      <TouchableOpacity style={styles.button} onPress={redirect}>
         <Text>Agende sua consulta!</Text>
       </TouchableOpacity>
-
 
       <TouchableOpacity style={styles.button} onPress={handleLogoff}>
         <Text>Sair</Text>
