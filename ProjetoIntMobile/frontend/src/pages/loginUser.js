@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   StatusBar,
   StyleSheet,
@@ -14,7 +14,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-
   const navigation = useNavigation();
 
   async function handleLogin() {
@@ -25,62 +24,85 @@ export default function Login() {
       });
 
       await AsyncStorage.setItem("@nome", JSON.stringify(resposta.data.nome));
-      await AsyncStorage.setItem(
-        "@clientId",
-        JSON.stringify(resposta.data.id)
-      );
+      await AsyncStorage.setItem("@clientId", JSON.stringify(resposta.data.id));
       navigation.navigate("Dashboard");
       setEmail("");
       setSenha("");
     } catch (error) {
       alert(error.response.data.error);
     }
-
-    function handleCadastrar() {
-      navigation.navigate("CadUser");
-    }
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" />
-        <Text style={styles.dental}>AppDental</Text>
-        <Text style={styles.login}>Faça seu login</Text>
-        <Text>Email:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu email"
-          value={email}
-          onChangeText={setEmail}
-        ></TextInput>
-
-        <Text>Senha:</Text>
-        <TextInput
-          secureTextEntry={true}
-          style={styles.input}
-          placeholder="Digite sua senha"
-          value={senha}
-          onChangeText={setSenha}
-        ></TextInput>
-
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text>Logar</Text>
-        </TouchableOpacity>
-
-        <Text>Novo por aqui? Crie seu cadastro</Text>
-
-        <TouchableOpacity style={styles.button} onPress={handleCadastrar}>
-          <Text>Cadastrar</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
-    );
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  });
+  function handleCadastrar() {
+    navigation.navigate("CadUser");
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+      <Text style={styles.dental}>AppDental</Text>
+      <Text style={styles.login}>Faça seu login</Text>
+      <Text>Email:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <Text>Senha:</Text>
+      <TextInput
+        secureTextEntry={true}
+        style={styles.input}
+        placeholder="Digite sua senha"
+        value={senha}
+        onChangeText={setSenha}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text>Logar</Text>
+      </TouchableOpacity>
+      <Text>Novo por aqui? Crie seu cadastro</Text>
+      <TouchableOpacity style={styles.button} onPress={handleCadastrar}>
+        <Text>Cadastrar</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  dental: {
+    fontSize: 24,
+    marginBottom: 20,
+    color: "black",
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderTopLeftRadius: 15,
+  },
+  login: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: "#23e3f3",
+  },
+  input: {
+    width: 300,
+    height: 40,
+    borderColor: "black",
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+
+  },
+  button: {
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    width: 300,
+    marginBottom: 20,
+  },
+});

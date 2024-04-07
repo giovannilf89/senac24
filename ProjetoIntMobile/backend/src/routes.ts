@@ -16,6 +16,7 @@ import { ListUniqueUserController } from './controller/user/listUniqueUserContro
 import { ListUserController } from './controller/user/listUserController'
 import { ListScheduleController } from './controller/Schedule/listScheduleController'
 import { ListUniqueScheduleController } from './controller/Schedule/listUniqueScheduleController'
+import { ListClientScheduleController } from './controller/Schedule/listClientScheduleController'
 
 
 
@@ -44,4 +45,5 @@ router.post('/CriarAgendamento', new createAppointmentController().handle)
 router.delete('/DeletarAgendamento', new deleteScheduleController().handle)
 router.get('/ListarAgendamentos', new ListScheduleController().handle)
 router.get('/ListarUniqueSchedule/:id', new ListUniqueScheduleController().handle)
+router.get('/ListarClienteAgendamento/:clientId', new ListClientScheduleController().handle)
 export { router }

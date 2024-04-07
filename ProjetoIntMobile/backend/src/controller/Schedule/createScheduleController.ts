@@ -4,13 +4,13 @@ import { createAppointmentServices } from '../../services/Schedule/createSchedul
 
 class createAppointmentController {
     async handle(req: Request, res: Response) {
-        const { data, horario, dentista, clientId, dentistId } = req.body
+        const { date, time, clientId, dentistId } = req.body
+
 
         const createAppointment = new createAppointmentServices()
         const resposta = await createAppointment.execute({
-            data,
-            horario,
-            dentista,
+            date,
+            time,
             clientId,
             dentistId
         })

@@ -5,10 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Dashboard from '../pages/dashboard'
 
 export default function CreateSchedule() {
   const [dentistList, setDentistList] = useState([]);
-  const [dentist, setDentist] = useState("");
+
+  const [dentistId, setDentistId] = useState("")
   const [clientId, setClientId] = useState("")
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("07:00");
@@ -81,13 +83,33 @@ export default function CreateSchedule() {
     setShowTimePicker(true);
   };
 
+  async function handleAgendar() {
+    try {
+      const resposta = await apiDental.post('/CriarAgendamento', {
+        date,
+        time,
+        clientId,
+        dentistId
+      });
+      console.log('Agendamento criado com sucesso:', resposta.data);
+      navigation.navigate(Dashboard)
+    } catch (error) {
+      console.log('Erro ao criar agendamento:', error.response ? error.response.data : error.message);
+      Alert.alert(
+        'Erro',
+        'Não foi possível agendar. Por favor, tente novamente.',
+        [{ text: 'OK' }]
+      );
+    }
+  }
+  
   return (
     <>
       <Text>Agendamento</Text>
       <Picker
-        selectedValue={dentist}
+        selectedValue={dentistId}
         style={{ height: 50, width: 200 }}
-        onValueChange={(itemValue, itemIndex) => setDentist(itemValue)}
+        onValueChange={(itemValue, itemIndex) => setDentistId(itemValue)}
       >
         <Picker.Item label="Selecione o profissional" value="" />
         {dentistList.map((dado, index) => (
@@ -121,7 +143,7 @@ export default function CreateSchedule() {
           ))}
         </Picker>
 
-        <Button title="Agendar" onPress={() => {  }} />
+        <Button title="Agendar" onPress={() => {handleAgendar()}} />
       </View>
     </>
   );

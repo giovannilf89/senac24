@@ -6,8 +6,9 @@ async execute(){
         select:{
             id: true,
             time: true,
+            date: true,
             dentist: true,
-            clientId: true
+            client: true
         }
     })
     return(listSchedule)

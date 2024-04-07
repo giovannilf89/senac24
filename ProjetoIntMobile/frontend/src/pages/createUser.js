@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   StatusBar,
   StyleSheet,
@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import apiDental from "../services/apiDental";
 import { useNavigation } from '@react-navigation/native';
-
 
 export default function CadUser() {
   const [nome, setNome] = useState("");
@@ -42,36 +41,40 @@ export default function CadUser() {
         estado,
         senha,
       });
-      setNome('')
-      setEmail('')
-      setCelular('')
-      setCpf('')
-      setCep('')
-      setRua('')
-      setComplemento('')
-      setBairro('')
-      setCidade('')
-      setEstado('')
-      setSenha('')
+      clearFields();
       navigation.navigate("Login");
     } catch (error) {
       alert(error.response.data.error);
     }
   }
 
+  const clearFields = () => {
+    setNome('');
+    setEmail('');
+    setCelular('');
+    setCpf('');
+    setCep('');
+    setRua('');
+    setComplemento('');
+    setBairro('');
+    setCidade('');
+    setEstado('');
+    setSenha('');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <StatusBar style="auto" />
-        <Text style={styles.titulo}>Seja Bem vindo</Text>
-        <Text style={styles.titulo}>Faça seu cadastro</Text>
+        <Text style={styles.cad}>Faça seu cadastro</Text>
+        
         <Text>Nome:</Text>
         <TextInput
           style={styles.input}
           placeholder="Nome"
           value={nome}
           onChangeText={setNome}
-        ></TextInput>
+        />
 
         <Text>Email:</Text>
         <TextInput
@@ -79,7 +82,7 @@ export default function CadUser() {
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
-        ></TextInput>
+        />
 
         <Text>Celular:</Text>
         <TextInput
@@ -87,23 +90,23 @@ export default function CadUser() {
           placeholder="Celular"
           value={celular}
           onChangeText={setCelular}
-        ></TextInput>
+        />
 
         <Text>CPF:</Text>
         <TextInput
           style={styles.input}
-          placeholder="cpf"
+          placeholder="CPF"
           value={cpf}
           onChangeText={setCpf}
-        ></TextInput>
+        />
 
         <Text>CEP:</Text>
         <TextInput
           style={styles.input}
-          placeholder="cep"
+          placeholder="CEP"
           value={cep}
           onChangeText={setCep}
-        ></TextInput>
+        />
 
         <Text>Rua:</Text>
         <TextInput
@@ -111,7 +114,7 @@ export default function CadUser() {
           placeholder="Rua"
           value={rua}
           onChangeText={setRua}
-        ></TextInput>
+        />
 
         <Text>Complemento:</Text>
         <TextInput
@@ -119,7 +122,7 @@ export default function CadUser() {
           placeholder="Complemento"
           value={complemento}
           onChangeText={setComplemento}
-        ></TextInput>
+        />
 
         <Text>Bairro:</Text>
         <TextInput
@@ -127,7 +130,7 @@ export default function CadUser() {
           placeholder="Bairro"
           value={bairro}
           onChangeText={setBairro}
-        ></TextInput>
+        />
 
         <Text>Cidade:</Text>
         <TextInput
@@ -135,7 +138,7 @@ export default function CadUser() {
           placeholder="Cidade"
           value={cidade}
           onChangeText={setCidade}
-        ></TextInput>
+        />
 
         <Text>Estado:</Text>
         <TextInput
@@ -143,7 +146,7 @@ export default function CadUser() {
           placeholder="Estado"
           value={estado}
           onChangeText={setEstado}
-        ></TextInput>
+        />
 
         <Text>Senha:</Text>
         <TextInput
@@ -152,7 +155,7 @@ export default function CadUser() {
           placeholder="Senha"
           value={senha}
           onChangeText={setSenha}
-        ></TextInput>
+        />
 
         <TouchableOpacity style={styles.button} onPress={handleCad}>
           <Text>Cadastrar</Text>
@@ -168,5 +171,39 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  titulo: {
+    fontSize: 24,
+    marginBottom: 20,
+    color: "black",
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderTopLeftRadius: 15,
+    textAlign: "center",  // Centralizar o texto
+  },
+  cad: {
+    fontSize: 24,
+    marginBottom: 20,
+    color: "black",
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderTopLeftRadius: 15,
+    textAlign: "center",  // Centralizar o texto
+  },
+  input: {
+    width: 300,
+    height: 40,
+    borderColor: "black",
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  button: {
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    width: 300,
+    marginBottom: 20,
   },
 });

@@ -1,14 +1,14 @@
 import prismaClient from "../../prisma";
 
-interface ListUniqueSchedule {
-    id: string
+interface ListClientSchedule {
+    clientId: string
 }
 
-class ListUniqueScheduleServices {
-    async execute({ id }: ListUniqueSchedule) {
-        const response = await prismaClient.appointment.findUnique({
+class ListClientScheduleServices {
+    async execute({ clientId }: ListClientSchedule) {
+        const response = await prismaClient.appointment.findMany({
             where: {
-                id: id
+                clientId: clientId
             },
             select: {
                 id: true,
@@ -21,4 +21,4 @@ class ListUniqueScheduleServices {
         return response
     }
 }
-export { ListUniqueScheduleServices }
+export { ListClientScheduleServices }

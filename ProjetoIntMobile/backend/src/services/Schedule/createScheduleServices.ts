@@ -2,24 +2,22 @@ import prismaClient from "../../prisma";
 
 
 interface CreateAppointment{
-    data: string
-    horario: string
-    dentista: string
+    date: string
+    time: string
     clientId: string
     dentistId: string
 }
 
 class createAppointmentServices{
-async execute({data, horario, dentista, clientId, dentistId}: CreateAppointment){
-    if (!data || !horario || !dentista || !clientId || !dentistId) {
+async execute({date, time, clientId, dentistId}: CreateAppointment){
+    if (!date || !time || !clientId || !dentistId) {
         throw new Error('Existem campos em branco')
     }
 
     const resposta = await prismaClient.appointment.create({
         data:{
-        date: data,
-        time: horario,
-        dentist: dentista,
+        date: date,
+        time: time,
         clientId: clientId,
         dentistId: dentistId
         }

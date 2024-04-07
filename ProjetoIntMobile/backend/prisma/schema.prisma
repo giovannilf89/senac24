@@ -48,15 +48,14 @@ model Dentist {
 
 model Appointment {
   id      String @id @default(uuid())
-  date    String
+  date    DateTime
   time    String
-  dentist String
 
   create_at DateTime? @default(now())
   update_at DateTime? @default(now())
 
   client Client @relation(fields: [clientId], references: [id])
-  dentis  Dentist  @relation(fields: [dentistId], references: [id])
+  dentist  Dentist  @relation(fields: [dentistId], references: [id])
 
   clientId String
   dentistId  String

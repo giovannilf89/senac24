@@ -33,9 +33,8 @@ CREATE TABLE `dentists` (
 -- CreateTable
 CREATE TABLE `appointments` (
     `id` VARCHAR(191) NOT NULL,
-    `date` VARCHAR(191) NOT NULL,
+    `date` DATETIME(3) NOT NULL,
     `time` VARCHAR(191) NOT NULL,
-    `dentist` VARCHAR(191) NOT NULL,
     `create_at` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
     `update_at` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
     `clientId` VARCHAR(191) NOT NULL,

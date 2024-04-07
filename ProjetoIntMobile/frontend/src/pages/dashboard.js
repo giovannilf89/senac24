@@ -30,19 +30,27 @@ export default function Dashboard() {
   function redirect() {
     navigation.navigate("CreateSchedule");
   }
+  function redirect1() {
+    navigation.navigate("ListSchedule");
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <Text>Seja bem-vindo, {user}</Text>
+     <>
+      <Text style={styles.bemvindo}>Seja bem-vindo, {user}</Text>
 
-      <TouchableOpacity style={styles.button} onPress={redirect}>
+      <TouchableOpacity style={styles.texto} onPress={redirect}>
         <Text>Agende sua consulta!</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.texto} onPress={redirect1}>
+        <Text>Agendamentos efetuados</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={handleLogoff}>
         <Text>Sair</Text>
       </TouchableOpacity>
+      </>
     </SafeAreaView>
   );
 }
@@ -53,5 +61,42 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  bemvindo: {
+    fontSize: 24,
+    marginBottom: 20,
+    color: "black",
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderTopLeftRadius: 15,
+  },
+  dental: {
+    fontSize: 24,
+    marginBottom: 20,
+    color: "black",
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderTopLeftRadius: 15,
+  },
+  login: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: "#23e3f3",
+  },
+  input: {
+    width: 300,
+    height: 40,
+    borderColor: "black",
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  button: {
+    backgroundColor: "red",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    width: 300,
+    marginBottom: 20,
   },
 });
