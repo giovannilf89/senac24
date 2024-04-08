@@ -77,6 +77,28 @@ export default function Dashboard() {
 
         navigation.navigate('CriarItensPedido')
     }
+
+    function handleListar() {
+        navigation.navigate('ListarPedido')
+    }
+
+
+
+    async function handleLogoff() {
+        try {
+            await AsyncStorage.removeItem('@id');
+            setClienteId('');
+            await AsyncStorage.removeItem('@nome')
+            setUser('')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'LoginCli' }]
+            });
+        } catch (error) {
+            console.log('Erro ao fazer logoff:', error);
+        }
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="auto" />
@@ -92,6 +114,14 @@ export default function Dashboard() {
 
             <TouchableOpacity style={styles.button} onPress={handlePedido}>
                 <Text>Efetuar Pedido</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={handleListar}>
+                <Text>Listar Pedidos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={handleLogoff}>
+                <Text>Logoff</Text>
             </TouchableOpacity>
 
         </SafeAreaView>

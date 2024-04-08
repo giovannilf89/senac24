@@ -16,7 +16,7 @@ interface CriarCliente {
 
 class CriarClienteServices {
     async execute({ nome, email, senha, cpf, cep, rua, numero, bairro, cidade, uf }: CriarCliente) {
-        // console.log('service',nome)
+        console.log('service',nome)
         if (!nome || !email || !senha || !cpf || !cep || !rua || !numero || !bairro || !cidade || !uf) {
             throw new Error('Existem campos em branco')
         }

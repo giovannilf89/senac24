@@ -5,7 +5,7 @@ import { ListarPedidoUnicoServices } from '../../Services/Pedido/ListarPedidoUni
 class ListarPedidoUnicoController {
     async handle(req: Request, res: Response) {
         const {pedido} = req.body // {} desconstroi o objeto
-        console.log(pedido)
+        // console.log('controller', req.body)
 
         const listarPedidoUnicoService = new ListarPedidoUnicoServices()
         const resposta = await listarPedidoUnicoService.execute({

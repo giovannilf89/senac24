@@ -35,7 +35,7 @@ export default function CriarCli() {
             })
             navigation.navigate('LoginCli')
         } catch (error) {
-            alert("erro")
+            alert(error.response.data.resposta)
         }
 
     }

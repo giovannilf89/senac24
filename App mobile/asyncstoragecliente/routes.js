@@ -4,6 +4,7 @@ import LoginCli from "./src/Pages/loginCli";
 import Dashboard from "./src/Pages/dashboard";
 import CriarCli from "./src/Pages/criarCli";
 import CriarItensPedido from "./src/Pages/criarItensPedido";
+import ListarPedidosCliente from "./src/Pages/ListarPedido";
 
 const Stack = createNativeStackNavigator()
 
@@ -28,6 +29,11 @@ export default function AppRoutes() {
          <Stack.Screen 
              name='CriarItensPedido'
              component={CriarItensPedido}
+             options={{ headerShown: false }}>
+         </Stack.Screen>
+         <Stack.Screen 
+             name='ListarPedido'
+             component={ListarPedidosCliente}
              options={{ headerShown: false }}>
          </Stack.Screen>
      </Stack.Navigator>

@@ -13,6 +13,7 @@ import AlterarCliente from "./pages/cliente/AlterarCliente";
 import AlterarProduto from "./pages/produto/AlterarProduto";
 import CadPedido from "./pages/pedido/CadPedido";
 import Cozinha from './pages/cozinha/Cozinha'
+import ListarPedidoCozinha from './pages/listar/ListarPedidoCozinha'
 
 
 export default function Rotas() {
