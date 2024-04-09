@@ -35,11 +35,11 @@ import { DeletarProdutosController } from './Controller/Produtos/DeletarProdutos
 import { ListarProdutosCategoriaController } from './Controller/Pedido/ListarProdutosCategoriaController'
 import { SomarPedidoController } from './Controller/Pedido/SomarPedidoController'
 import { ListarUsuarioTokenController } from './Controller/usuarios/ListarUsuarioTokenController'
-import { ListarPedidoUnicoController } from './Controller/Pedido/ListarPedidoUnicoController'
 import { AlterarPedidoController } from './Controller/Pedido/AlterarPedidoController'
 import { FinalizarPedidosController } from './Controller/Pedido/FinalizarPedidoController'
 import { ListarPedidoController } from './Controller/Pedido/ListarPedidosController'
 import { ListarPedidosClienteController } from './Controller/Pedido/ListarPedidosClienteController'
+import { ListarPedidoUnicoController } from './Controller/Pedido/ListarPedidoUnicoController'
 
 const router = Router()
 const upload = multer(uploadConfig.upload('./tmp'))
@@ -80,7 +80,7 @@ router.post('/CriarItemPedido', new CriarItemPedidoController().handle)
 router.get('/ListarProdutosCategoria/:id', new ListarProdutosCategoriaController().handle)
 router.delete('/DeletarItemPedido/:id', new DeletarItemPedidoController().handle)
 router.get('/SomarItensPedido/:id', new SomarPedidoController().handle)
-router.post('/ListarPedidoUnico', new ListarPedidoUnicoController().handle)
+router.get('/ListarPedidoUnico/:id', new ListarPedidoUnicoController().handle)
 router.put('/AlteraPedido', new AlterarPedidoController().handle)
 router.put('/FinalizarPedido', new FinalizarPedidosController().handle)
 router.get('/ListarPedidos', new ListarPedidoController().handle)

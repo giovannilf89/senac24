@@ -34,6 +34,7 @@ export default function Rotas() {
         <Route path="/AlterarProduto/:id" element={<AlterarProduto />} />
         <Route path="/CadPedido" element={<CadPedido />} />
         <Route path='/Cozinha' element={<Cozinha />} />
+        <Route path='ListarPedidoUnico/:id' element={<ListarPedidoCozinha />} />
       </Routes>
     </BrowserRouter>
   );

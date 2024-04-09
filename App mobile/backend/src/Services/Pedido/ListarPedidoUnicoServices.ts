@@ -1,17 +1,20 @@
 import prismaClient from "../../prisma";
 
-interface ListarProdutoUnico {
-    pedido: number
+interface ListarPedidoUnico {
+    id: string
 }
 
 class ListarPedidoUnicoServices {
-    async execute({ pedido}: ListarProdutoUnico) {
+    async execute({ id }: ListarPedidoUnico) {
         const resposta = await prismaClient.pedido.findUnique({
             where: {
-                n_pedido: pedido,
+                id: id
             },
-            include: {
-                clientes: true,
+            select: {
+                n_pedido: true,
+                status: true,
+                valor_total: true,
+                entregador: true
             }
         })
         return resposta
