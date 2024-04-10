@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 
 function CadUsuario() {
-  const navigation = useNavigate()
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
@@ -16,6 +15,8 @@ function CadUsuario() {
   const [bairro, setBairro] = useState('')
   const [cidade, setCidade] = useState('')
   const [uf, setUf] = useState('')
+
+  const navigation = useNavigate()
 
   async function Cadastro(e) {
     e.preventDefault()

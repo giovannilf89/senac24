@@ -4,12 +4,13 @@ import { FinalizarPedidoServices } from '../../Services/Pedido/FinalizarPedidoSe
 
 class FinalizarPedidosController{
 async handle(req: Request, res: Response){
-    const {id, draft, aceito } = req.body
+    const {id, draft, aceito, valor_total } = req.body
     const finalizarPedido = new FinalizarPedidoServices()
     const resposta = await finalizarPedido.execute({
         id,
         draft,
-        aceito
+        aceito,
+        valor_total
     })
     return res.json(resposta)
 }

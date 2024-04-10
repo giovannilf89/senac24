@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function CadPedido() {
-  const navigation = useNavigate();
+
   const [clientes, setClientes] = useState([""]);
   const [clienteId, setClienteId] = useState("");
   const [pedidos, setPedidos] = useState([""]);
@@ -19,6 +19,8 @@ export default function CadPedido() {
   const [valorTotal, setValorTotal] = useState("");
 
   const [modalAberto, setModalAberto] = useState(false);
+
+  const navigation = useNavigate();
 
   useEffect(() => {
     async function LoadClientes() {
@@ -46,7 +48,7 @@ export default function CadPedido() {
         console.log(setProdutosCategoria);
       }
       lerProdutosCategoria();
-    } catch (err) {}
+    } catch (err) { }
   }, [categoriaId]);
 
   async function abrirModal() {
@@ -64,11 +66,12 @@ export default function CadPedido() {
         setCategorias(resposta.data);
       }
       lerCategorias();
-    } catch (err) {}
+    } catch (err) { }
   }
 
   async function fecharModal() {
     try {
+      const valor_total = valorTotal
       const id = pedidos.id;
       const draft = false;
       const aceito = true;
@@ -76,6 +79,7 @@ export default function CadPedido() {
         id,
         draft,
         aceito,
+        valor_total
       });
       toast.success(resposta.data.dados, {
         toastId: "toastId",
@@ -145,6 +149,27 @@ export default function CadPedido() {
   }, [itensPedido]);
 
   console.log(pedidos);
+
+  async function handleSair() {
+    const remover = pedidos.id
+    const resposta = await apiBack.delete('/DeletarPedido', {
+      data: {
+        remover: remover
+      }
+    })
+    toast.success('Pedido deletado com sucesso')
+    navigation('CadPedido');
+  }
+
+  async function handleItens(){
+    const id = pedidos.id
+    try {
+      await apiBack.delete(`/DeletarItemPedido'${id}`)
+    } catch (error) {
+      // RESOLVER BACK END!!!
+    }
+  }
+
   return (
     <div>
       <h1>Pedido</h1>
@@ -222,7 +247,9 @@ export default function CadPedido() {
               </h1>
             )}
           </>
+          <button onClick={handleItens}>Limpar itens</button>
           <button onClick={fecharModal}>Finalizar Pedidos</button>
+          <button onClick={handleSair}>Voltar</button>
         </Modal>
       )}
     </div>

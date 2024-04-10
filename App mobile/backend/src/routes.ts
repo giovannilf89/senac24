@@ -40,6 +40,7 @@ import { FinalizarPedidosController } from './Controller/Pedido/FinalizarPedidoC
 import { ListarPedidoController } from './Controller/Pedido/ListarPedidosController'
 import { ListarPedidosClienteController } from './Controller/Pedido/ListarPedidosClienteController'
 import { ListarPedidoUnicoController } from './Controller/Pedido/ListarPedidoUnicoController'
+import { DeletarPedidoController } from './Controller/Pedido/DeletarPedidoController'
 
 const router = Router()
 const upload = multer(uploadConfig.upload('./tmp'))
@@ -85,6 +86,7 @@ router.put('/AlteraPedido', new AlterarPedidoController().handle)
 router.put('/FinalizarPedido', new FinalizarPedidosController().handle)
 router.get('/ListarPedidos', new ListarPedidoController().handle)
 router.get('/ListarPedidoCliente/:clienteId', new ListarPedidosClienteController().handle)
+router.delete('/DeletarPedido', new DeletarPedidoController().handle)
 
 //Estrutura Usuarios 
 router.post("/CriarUsuarios", new CriarUsuarioController().handle);
