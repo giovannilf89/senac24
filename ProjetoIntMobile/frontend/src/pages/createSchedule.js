@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button, Platform, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Button, Platform, Alert, SafeAreaView } from "react-native";
 import apiDental from "../services/apiDental";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -23,14 +23,14 @@ export default function CreateSchedule() {
 
   const navigation = useNavigation();
 
-  useEffect(()=> {
-    async function handleClientId(){
+  useEffect(() => {
+    async function handleClientId() {
       const clientId = await AsyncStorage.getItem("@clientId")
       const id = JSON.parse(clientId)
       setClientId(id)
     }
     handleClientId()
-  },[])
+  }, [])
 
 
   useEffect(() => {
@@ -102,21 +102,25 @@ export default function CreateSchedule() {
       );
     }
   }
-  
+
+  function handleVoltar() {
+    navigation.navigate('Dashboard')
+  }
+
   return (
-    <>
-      <Text>Agendamento</Text>
-      <Picker
-        selectedValue={dentistId}
-        style={{ height: 50, width: 200 }}
-        onValueChange={(itemValue, itemIndex) => setDentistId(itemValue)}
-      >
-        <Picker.Item label="Selecione o profissional" value="" />
-        {dentistList.map((dado, index) => (
-          <Picker.Item key={index} label={dado.name} value={dado.id} />
-        ))}
-      </Picker>
-      <View>
+    <SafeAreaView style={styles.container}>
+      <>
+        <Text>Agendamento</Text>
+        <Picker
+          selectedValue={dentistId}
+          style={{ height: 50, width: 200 }}
+          onValueChange={(itemValue, itemIndex) => setDentistId(itemValue)}
+        >
+          <Picker.Item label="Selecione o profissional" value="" />
+          {dentistList.map((dado, index) => (
+            <Picker.Item key={index} label={dado.name} value={dado.id} />
+          ))}
+        </Picker>
         <Button title="Selecionar Data" onPress={showDatepicker} />
         {showDatePicker && (
           <DateTimePicker
@@ -143,9 +147,10 @@ export default function CreateSchedule() {
           ))}
         </Picker>
 
-        <Button title="Agendar" onPress={() => {handleAgendar()}} />
-      </View>
-    </>
+        <Button title="Agendar" style={styles.button} onPress={() => { handleAgendar() }} />
+        <TouchableOpacity style={styles.button} onPress={() => { handleVoltar() }}><Text>Voltar</Text></TouchableOpacity>
+      </>
+    </SafeAreaView>
   );
 }
 
@@ -156,4 +161,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  button: {
+    backgroundColor: "red",
+    padding: 1,
+    borderRadius: 5,
+    alignItems: "center",
+    width: 200,
+    marginBottom: 20,
+  }
 });

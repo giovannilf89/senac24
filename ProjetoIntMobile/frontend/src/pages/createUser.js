@@ -157,13 +157,14 @@ export default function CadUser() {
           onChangeText={setSenha}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleCad}>
+        <TouchableOpacity style={styles.buttonact} onPress={handleCad}>
           <Text>Cadastrar</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
   },
-  button: {
+  buttonact: {
     backgroundColor: "#23e3f3",
     padding: 10,
     borderRadius: 5,

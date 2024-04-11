@@ -57,11 +57,11 @@ export default function Login() {
         value={senha}
         onChangeText={setSenha}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={styles.buttonact} onPress={handleLogin}>
         <Text>Logar</Text>
       </TouchableOpacity>
       <Text>Novo por aqui? Crie seu cadastro</Text>
-      <TouchableOpacity style={styles.button} onPress={handleCadastrar}>
+      <TouchableOpacity style={styles.buttonact} onPress={handleCadastrar}>
         <Text>Cadastrar</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
 
   },
-  button: {
+  buttonact: {
     backgroundColor: "#23e3f3",
     padding: 10,
     borderRadius: 5,

@@ -1,8 +1,8 @@
-import { StatusBar, StyleSheet, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { StatusBar, StyleSheet, Text, SafeAreaView, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import CreateSchedule from "./createSchedule";
+
 
 export default function Dashboard() {
   const [user, setUser] = useState("");
@@ -37,19 +37,19 @@ export default function Dashboard() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-     <>
-      <Text style={styles.bemvindo}>Seja bem-vindo, {user}</Text>
-
-      <TouchableOpacity style={styles.texto} onPress={redirect}>
-        <Text>Agende sua consulta!</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.texto} onPress={redirect1}>
-        <Text>Agendamentos efetuados</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button} onPress={handleLogoff}>
-        <Text>Sair</Text>
-      </TouchableOpacity>
+      <>
+        <Text style={styles.bemvindo}>Seja bem-vindo, {user}</Text>
+        <View style={styles.grupoMenu}>
+          <TouchableOpacity style={styles.menu} onPress={redirect}>
+            <Text style={styles.textoMenu}>Agende sua consulta</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menu} onPress={redirect1}>
+            <Text style={styles.textoMenu}>Agendamentos efetuados</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.buttonSair} onPress={handleLogoff}>
+          <Text>Sair</Text>
+        </TouchableOpacity>
       </>
     </SafeAreaView>
   );
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
   },
   bemvindo: {
     fontSize: 24,
-    marginBottom: 20,
     color: "black",
     backgroundColor: "#23e3f3",
     padding: 10,
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
   },
-  button: {
+  buttonSair: {
     backgroundColor: "red",
     padding: 10,
     borderRadius: 5,
@@ -99,4 +98,16 @@ const styles = StyleSheet.create({
     width: 300,
     marginBottom: 20,
   },
+  menu:{
+    borderWidth: 1,
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+  },
+  textoMenu: {
+    fontSize: 23,
+  },
+  grupoMenu:{
+    margin: 15,
+  }
 });
