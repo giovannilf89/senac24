@@ -110,7 +110,9 @@ export default function CreateSchedule() {
   return (
     <SafeAreaView style={styles.container}>
       <>
+        <Text style={styles.logo}>AppDental</Text>
         <Text>Agendamento</Text>
+        <Text style={styles.inputField}>Selecione o profissional</Text>
         <Picker
           selectedValue={dentistId}
           style={{ height: 50, width: 200 }}
@@ -121,7 +123,8 @@ export default function CreateSchedule() {
             <Picker.Item key={index} label={dado.name} value={dado.id} />
           ))}
         </Picker>
-        <Button title="Selecionar Data" onPress={showDatepicker} />
+        <Text style={styles.inputField}>Selecione a data</Text>
+        <Button style={styles.buttonact} title="Selecionar Data" onPress={showDatepicker} />
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -136,7 +139,7 @@ export default function CreateSchedule() {
         )}
         <Text>Data selecionada: {date.toLocaleDateString()}</Text>
 
-        <Text>Selecione o horário:</Text>
+        <Text style={styles.inputField}>Selecione o horário:</Text>
         <Picker
           selectedValue={time}
           style={{ height: 50, width: 200 }}
@@ -147,8 +150,8 @@ export default function CreateSchedule() {
           ))}
         </Picker>
 
-        <Button title="Agendar" style={styles.button} onPress={() => { handleAgendar() }} />
-        <TouchableOpacity style={styles.button} onPress={() => { handleVoltar() }}><Text>Voltar</Text></TouchableOpacity>
+        <Button title="Agendar" style={styles.buttonact} onPress={() => { handleAgendar() }} />
+        <TouchableOpacity style={styles.buttonSair} onPress={() => { handleVoltar() }}><Text>Voltar</Text></TouchableOpacity>
       </>
     </SafeAreaView>
   );
@@ -168,5 +171,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 200,
     marginBottom: 20,
+  },
+  buttonSair: {
+    backgroundColor: "red",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    width: 150,
+    margin: 30,
+  },
+  buttonact: {
+    backgroundColor: "#23e3f3",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    width: 300,
+    marginBottom: 20,
+  },
+  logo: {
+    fontSize: 25,
+    marginBottom: 50,
+    backgroundColor: "#23e3f3",
   }
 });

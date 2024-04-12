@@ -6,7 +6,8 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  Button
+  Button,
+  View
 } from "react-native";
 import apiDental from "../services/apiDental";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -73,31 +74,31 @@ export default function ListSchedule() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <StatusBar style="auto" />
+      <StatusBar style="auto" />
+        <Text style={styles.logo}>AppDental</Text>
         <Text>Agendamentos</Text>
-
-        {/* Verifica se 'list' não é null antes de renderizar */}
-        {list !== null ? (
-          list.length > 0 ? (
-            list.map((item, index) => (
-              <React.Fragment key={index}>
-                <Text style={styles.dateText}>{formatarData(item.date)}</Text>
-                <Text>{item.time}</Text>
-                <Text>{item.dentist.name}</Text>
-                <Text>{item.client.name}</Text>
-                <TouchableOpacity style={styles.button} onPress={() => handleDelete(item.id)}><Text>Cancelar Angedamento</Text></TouchableOpacity>
-              </React.Fragment>
-            ))
+        <ScrollView>
+          {/* Verifica se 'list' não é null antes de renderizar */}
+          {list !== null ? (
+            list.length > 0 ? (
+              list.map((item, index) => (
+                <React.Fragment key={index}>
+                  <Text style={styles.dateText}>{formatarData(item.date)}</Text>
+                  <Text>{item.time}</Text>
+                  <Text>{item.dentist.name}</Text>
+                  <Text>{item.client.name}</Text>
+                  <TouchableOpacity style={styles.button} onPress={() => handleDelete(item.id)}><Text>Cancelar Angedamento</Text></TouchableOpacity>
+                </React.Fragment>
+              ))
+            ) : (
+              <Text>Nenhum agendamento encontrado.</Text>
+            )
           ) : (
-            <Text>Nenhum agendamento encontrado.</Text>
-          )
-        ) : (
-          <Text>Carregando...</Text>
-        )}
-        <Button title="Voltar" onPress={() => { handleVoltar() }} />
-      </ScrollView>
-    </SafeAreaView>
+            <Text>Carregando...</Text>
+          )}
+          <Button title="Voltar" onPress={() => { handleVoltar() }} />
+        </ScrollView>
+    </SafeAreaView >
   );
 }
 
@@ -109,4 +110,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  logo: {
+    fontSize: 25,
+    marginBottom: 50,
+    backgroundColor: "#23e3f3",
+    marginTop: 20,
+  }
 });

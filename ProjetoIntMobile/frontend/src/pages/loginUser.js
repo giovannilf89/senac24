@@ -40,16 +40,16 @@ export default function Login() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={styles.dental}>AppDental</Text>
+      <Text style={styles.logo}>AppDental</Text>
       <Text style={styles.login}>Faça seu login</Text>
-      <Text>Email:</Text>
+      <Text style={styles.inputField}>Email:</Text>
       <TextInput
         style={styles.input}
         placeholder="Digite seu email"
         value={email}
         onChangeText={setEmail}
       />
-      <Text>Senha:</Text>
+      <Text style={styles.inputField}>Senha:</Text>
       <TextInput
         secureTextEntry={true}
         style={styles.input}
@@ -75,18 +75,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  dental: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: "black",
+  logo: {
+    fontSize: 25,
+    marginBottom: 50,
     backgroundColor: "#23e3f3",
-    padding: 10,
-    borderTopLeftRadius: 15,
   },
   login: {
     fontSize: 18,
     marginBottom: 20,
-    color: "#23e3f3",
   },
   input: {
     width: 300,

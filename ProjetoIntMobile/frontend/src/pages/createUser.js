@@ -64,103 +64,105 @@ export default function CadUser() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <>
         <StatusBar style="auto" />
+        <Text style={styles.logo}>AppDental</Text>
         <Text style={styles.cad}>Faça seu cadastro</Text>
-        
-        <Text>Nome:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nome"
-          value={nome}
-          onChangeText={setNome}
-        />
+        <ScrollView>
+          <Text style={styles.inputField}>Nome:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Nome"
+            value={nome}
+            onChangeText={setNome}
+          />
 
-        <Text>Email:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-        />
+          <Text style={styles.inputField}>Email:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
 
-        <Text>Celular:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Celular"
-          value={celular}
-          onChangeText={setCelular}
-        />
+          <Text style={styles.inputField}>Celular:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Celular"
+            value={celular}
+            onChangeText={setCelular}
+          />
 
-        <Text>CPF:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="CPF"
-          value={cpf}
-          onChangeText={setCpf}
-        />
+          <Text style={styles.inputField}>CPF:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="CPF"
+            value={cpf}
+            onChangeText={setCpf}
+          />
 
-        <Text>CEP:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="CEP"
-          value={cep}
-          onChangeText={setCep}
-        />
+          <Text style={styles.inputField}>CEP:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="CEP"
+            value={cep}
+            onChangeText={setCep}
+          />
 
-        <Text>Rua:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Rua"
-          value={rua}
-          onChangeText={setRua}
-        />
+          <Text style={styles.inputField}>Rua:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Rua"
+            value={rua}
+            onChangeText={setRua}
+          />
 
-        <Text>Complemento:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Complemento"
-          value={complemento}
-          onChangeText={setComplemento}
-        />
+          <Text style={styles.inputField}>Complemento:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Complemento"
+            value={complemento}
+            onChangeText={setComplemento}
+          />
 
-        <Text>Bairro:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Bairro"
-          value={bairro}
-          onChangeText={setBairro}
-        />
+          <Text style={styles.inputField}>Bairro:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Bairro"
+            value={bairro}
+            onChangeText={setBairro}
+          />
 
-        <Text>Cidade:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Cidade"
-          value={cidade}
-          onChangeText={setCidade}
-        />
+          <Text style={styles.inputField}>Cidade:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Cidade"
+            value={cidade}
+            onChangeText={setCidade}
+          />
 
-        <Text>Estado:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Estado"
-          value={estado}
-          onChangeText={setEstado}
-        />
+          <Text style={styles.inputField}>Estado:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Estado"
+            value={estado}
+            onChangeText={setEstado}
+          />
 
-        <Text>Senha:</Text>
-        <TextInput
-          secureTextEntry={true}
-          style={styles.input}
-          placeholder="Senha"
-          value={senha}
-          onChangeText={setSenha}
-        />
+          <Text style={styles.inputField}>Senha:</Text>
+          <TextInput
+            secureTextEntry={true}
+            style={styles.input}
+            placeholder="Senha"
+            value={senha}
+            onChangeText={setSenha}
+          />
 
-        <TouchableOpacity style={styles.buttonact} onPress={handleCad}>
-          <Text>Cadastrar</Text>
-        </TouchableOpacity>
-      </ScrollView>
+          <TouchableOpacity style={styles.buttonact} onPress={handleCad}>
+            <Text>Cadastrar</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </>
     </SafeAreaView>
   );
 }
@@ -206,5 +208,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 300,
     marginBottom: 20,
+  },
+  logo: {
+    fontSize: 25,
+    marginBottom: 50,
+    backgroundColor: "#23e3f3",
+    marginTop: 20,
   },
 });

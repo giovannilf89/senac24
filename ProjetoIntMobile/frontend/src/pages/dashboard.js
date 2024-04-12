@@ -38,6 +38,7 @@ export default function Dashboard() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <>
+      <Text style={styles.logo}>AppDental</Text>
         <Text style={styles.bemvindo}>Seja bem-vindo, {user}</Text>
         <View style={styles.grupoMenu}>
           <TouchableOpacity style={styles.menu} onPress={redirect}>
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    width: 300,
+    width: 150,
     marginBottom: 20,
   },
   menu:{
@@ -109,5 +110,10 @@ const styles = StyleSheet.create({
   },
   grupoMenu:{
     margin: 15,
+  },
+  logo: {
+    fontSize: 25,
+    marginBottom: 50,
+    backgroundColor: "#23e3f3",
   }
 });
