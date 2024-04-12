@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, Button, Platform, Alert, SafeAreaView } from "react-native";
+import {Text, TouchableOpacity, Button, Platform, Alert, SafeAreaView } from "react-native";
 import apiDental from "../services/apiDental";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Dashboard from '../pages/dashboard'
+import styles from './styles'
+
 
 export default function CreateSchedule() {
   const [dentistList, setDentistList] = useState([]);
@@ -115,7 +117,7 @@ export default function CreateSchedule() {
         <Text style={styles.inputField}>Selecione o profissional</Text>
         <Picker
           selectedValue={dentistId}
-          style={{ height: 50, width: 200 }}
+          style={{ height: 50, width: 200, borderWidth: 1, }}
           onValueChange={(itemValue, itemIndex) => setDentistId(itemValue)}
         >
           <Picker.Item label="Selecione o profissional" value="" />
@@ -124,7 +126,7 @@ export default function CreateSchedule() {
           ))}
         </Picker>
         <Text style={styles.inputField}>Selecione a data</Text>
-        <Button style={styles.buttonact} title="Selecionar Data" onPress={showDatepicker} />
+        <TouchableOpacity style={styles.select} onPress={showDatepicker}><Text>Abrir Calendário</Text></TouchableOpacity>
         {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -137,7 +139,7 @@ export default function CreateSchedule() {
             onChange={onChangeDate}
           />
         )}
-        <Text>Data selecionada: {date.toLocaleDateString()}</Text>
+        <Text style={styles.data}>{date.toLocaleDateString()}</Text>
 
         <Text style={styles.inputField}>Selecione o horário:</Text>
         <Picker
@@ -150,47 +152,10 @@ export default function CreateSchedule() {
           ))}
         </Picker>
 
-        <Button title="Agendar" style={styles.buttonact} onPress={() => { handleAgendar() }} />
-        <TouchableOpacity style={styles.buttonSair} onPress={() => { handleVoltar() }}><Text>Voltar</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.buttonact} onPress={() => { handleAgendar() }}><Text>Agendar</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.buttonact} onPress={() => { handleVoltar() }}><Text>Voltar</Text></TouchableOpacity>
       </>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    backgroundColor: "red",
-    padding: 1,
-    borderRadius: 5,
-    alignItems: "center",
-    width: 200,
-    marginBottom: 20,
-  },
-  buttonSair: {
-    backgroundColor: "red",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    width: 150,
-    margin: 30,
-  },
-  buttonact: {
-    backgroundColor: "#23e3f3",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    width: 300,
-    marginBottom: 20,
-  },
-  logo: {
-    fontSize: 25,
-    marginBottom: 50,
-    backgroundColor: "#23e3f3",
-  }
-});

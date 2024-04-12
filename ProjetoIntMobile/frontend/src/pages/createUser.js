@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   SafeAreaView,
@@ -10,6 +9,8 @@ import {
 } from "react-native";
 import apiDental from "../services/apiDental";
 import { useNavigation } from '@react-navigation/native';
+import styles from './styles'
+
 
 export default function CadUser() {
   const [nome, setNome] = useState("");
@@ -60,6 +61,10 @@ export default function CadUser() {
     setCidade('');
     setEstado('');
     setSenha('');
+  }
+
+  function handleVoltar() {
+    navigation.navigate('Dashboard')
   }
 
   return (
@@ -157,62 +162,14 @@ export default function CadUser() {
             value={senha}
             onChangeText={setSenha}
           />
-
-          <TouchableOpacity style={styles.buttonact} onPress={handleCad}>
+        </ScrollView>
+        <TouchableOpacity style={styles.buttonact} onPress={handleCad}>
             <Text>Cadastrar</Text>
           </TouchableOpacity>
-        </ScrollView>
+          <TouchableOpacity style={styles.buttonSair} onPress={() => { handleVoltar() }}><Text>Voltar</Text></TouchableOpacity>
       </>
     </SafeAreaView>
   );
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  titulo: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: "black",
-    backgroundColor: "#23e3f3",
-    padding: 10,
-    borderTopLeftRadius: 15,
-    textAlign: "center",  // Centralizar o texto
-  },
-  cad: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: "black",
-    backgroundColor: "#23e3f3",
-    padding: 10,
-    borderTopLeftRadius: 15,
-    textAlign: "center",  // Centralizar o texto
-  },
-  input: {
-    width: 300,
-    height: 40,
-    borderColor: "black",
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  buttonact: {
-    backgroundColor: "#23e3f3",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    width: 300,
-    marginBottom: 20,
-  },
-  logo: {
-    fontSize: 25,
-    marginBottom: 50,
-    backgroundColor: "#23e3f3",
-    marginTop: 20,
-  },
-});

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   SafeAreaView,
@@ -10,6 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import apiDental from "../services/apiDental";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import styles from './styles'
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -41,7 +41,7 @@ export default function Login() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Text style={styles.logo}>AppDental</Text>
-      <Text style={styles.login}>Faça seu login</Text>
+      <Text style={styles.title}>Faça seu login</Text>
       <Text style={styles.inputField}>Email:</Text>
       <TextInput
         style={styles.input}
@@ -68,37 +68,3 @@ export default function Login() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    fontSize: 25,
-    marginBottom: 50,
-    backgroundColor: "#23e3f3",
-  },
-  login: {
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  input: {
-    width: 300,
-    height: 40,
-    borderColor: "black",
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-
-  },
-  buttonact: {
-    backgroundColor: "#23e3f3",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    width: 300,
-    marginBottom: 20,
-  },
-});

@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
   StatusBar,
-  StyleSheet,
   Text,
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  Button,
-  View
 } from "react-native";
 import apiDental from "../services/apiDental";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-
+import styles from './styles'
 
 const formatarData = (data) => {
   const date = new Date(data);
@@ -87,7 +84,7 @@ export default function ListSchedule() {
                   <Text>{item.time}</Text>
                   <Text>{item.dentist.name}</Text>
                   <Text>{item.client.name}</Text>
-                  <TouchableOpacity style={styles.button} onPress={() => handleDelete(item.id)}><Text>Cancelar Angedamento</Text></TouchableOpacity>
+                  <TouchableOpacity style={styles.btnCancel} onPress={() => handleDelete(item.id)}><Text>Cancelar Angedamento</Text></TouchableOpacity>
                 </React.Fragment>
               ))
             ) : (
@@ -96,24 +93,10 @@ export default function ListSchedule() {
           ) : (
             <Text>Carregando...</Text>
           )}
-          <Button title="Voltar" onPress={() => { handleVoltar() }} />
         </ScrollView>
+        <TouchableOpacity style={styles.buttonact} onPress={() => { handleVoltar() }}><Text>Voltar</Text></TouchableOpacity>
     </SafeAreaView >
   );
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    fontSize: 25,
-    marginBottom: 50,
-    backgroundColor: "#23e3f3",
-    marginTop: 20,
-  }
-});
