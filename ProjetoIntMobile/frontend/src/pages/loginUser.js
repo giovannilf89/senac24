@@ -5,11 +5,12 @@ import {
   TouchableOpacity,
   SafeAreaView,
   TextInput,
+  View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import apiDental from "../services/apiDental";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import styles from './styles'
+import styles from "./styles";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -41,25 +42,31 @@ export default function Login() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Text style={styles.logo}>AppDental</Text>
-      <Text style={styles.title}>Faça seu login</Text>
-      <Text style={styles.inputField}>Email:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite seu email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <Text style={styles.inputField}>Senha:</Text>
-      <TextInput
-        secureTextEntry={true}
-        style={styles.input}
-        placeholder="Digite sua senha"
-        value={senha}
-        onChangeText={setSenha}
-      />
-      <TouchableOpacity style={styles.buttonact} onPress={handleLogin}>
-        <Text>Logar</Text>
-      </TouchableOpacity>
+      <View style={styles.fundo}>
+        <View style={styles.fundo1}>
+          <Text style={styles.titleLogin}>Faça seu login</Text>
+        </View>
+        <View style={styles.inside}>
+          <Text style={styles.inputField}>Email:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite seu email"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <Text style={styles.inputField}>Senha:</Text>
+          <TextInput
+            secureTextEntry={true}
+            style={styles.input}
+            placeholder="Digite sua senha"
+            value={senha}
+            onChangeText={setSenha}
+          />
+          <TouchableOpacity style={styles.buttonact2} onPress={handleLogin}>
+            <Text>Logar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       <Text>Novo por aqui? Crie seu cadastro</Text>
       <TouchableOpacity style={styles.buttonact} onPress={handleCadastrar}>
         <Text>Cadastrar</Text>
@@ -67,4 +74,3 @@ export default function Login() {
     </SafeAreaView>
   );
 }
-

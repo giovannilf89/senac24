@@ -1,8 +1,14 @@
-import { StatusBar, Text, SafeAreaView, TouchableOpacity, View } from "react-native";
+import {
+  StatusBar,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import styles from './styles'
+import styles from "./styles";
 
 export default function Dashboard() {
   const [user, setUser] = useState("");
@@ -20,10 +26,10 @@ export default function Dashboard() {
 
   async function handleLogoff() {
     await AsyncStorage.removeItem("@nome");
-    setUser('');
+    setUser("");
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Login' }],
+      routes: [{ name: "Login" }],
     });
   }
 
@@ -38,15 +44,20 @@ export default function Dashboard() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <>
-      <Text style={styles.logo}>AppDental</Text>
-        <Text style={styles.bemVindo}>Seja bem-vindo, {user}</Text>
-        <View style={styles.grupoMenu}>
-          <TouchableOpacity style={styles.menu} onPress={redirect}>
-            <Text style={styles.textoMenu}>Agende sua consulta</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menu} onPress={redirect1}>
-            <Text style={styles.textoMenu}>Agendamentos efetuados</Text>
-          </TouchableOpacity>
+        <Text style={styles.logo}>AppDental</Text>
+        <Text style={styles.bemVindo}>Seja bem-vindo(a), {user}</Text>
+        <View style={styles.dashCad1}>
+          <View style={styles.dashCad2}>
+            <Text style={styles.titleDash}>Dashboard</Text>
+          </View>
+          <View style={styles.grupoMenu}>
+            <TouchableOpacity style={styles.menu} onPress={redirect}>
+              <Text style={styles.textoMenu}>Agende sua consulta</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menu} onPress={redirect1}>
+              <Text style={styles.textoMenu}>Agendamentos efetuados</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <TouchableOpacity style={styles.buttonSair} onPress={handleLogoff}>
           <Text>Sair</Text>
@@ -55,4 +66,3 @@ export default function Dashboard() {
     </SafeAreaView>
   );
 }
-
