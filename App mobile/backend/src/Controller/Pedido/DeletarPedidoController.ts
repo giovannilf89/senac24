@@ -3,12 +3,12 @@ import { DeletarPedidoServices } from '../../Services/Pedido/DeletarPedidoServic
 
 class DeletarPedidoController {
     async handle(req: Request, res: Response) {
-        const { remover } = req.body
+        const { id } = req.body
         console.log('controller', req.body)
 
         const deletarPedido = new DeletarPedidoServices()
         const deletar = await deletarPedido.execute({
-            remover,
+            id,
         })
         return res.json(deletar)
     }

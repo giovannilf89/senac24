@@ -81,9 +81,7 @@ export default function CadPedido() {
         aceito,
         valor_total
       });
-      toast.success(resposta.data.dados, {
-        toastId: "toastId",
-      });
+      toast.success("Pedido efetuado!")
       setModalAberto(false);
       navigation("/");
     } catch (err) {
@@ -151,25 +149,25 @@ export default function CadPedido() {
   console.log(pedidos);
 
   async function handleSair() {
-    const remover = pedidos.id
-    const resposta = await apiBack.delete('/DeletarPedido', {
+    const id = pedidos.id
+    await apiBack.delete('/DeletarPedido', {
       data: {
-        remover: remover
+        id: id
       }
     })
     toast.success('Pedido deletado com sucesso')
     navigation('CadPedido');
   }
-
-  async function handleItens(){
-    const id = pedidos.id
+  async function handleItens() {
     try {
-      await apiBack.delete(`/DeletarItemPedido'${id}`)
-    } catch (error) {
-      // RESOLVER BACK END!!!
+      const id = pedidos.id; // Obtenha o ID do pedido atual
+      await apiBack.delete(`/DeletarItemPedido/${id}`); // Exclua os itens do pedido atual
+      setItensPedido([]); // Limpe a lista de itens do pedido
+    } catch (err) {
+      console.log(err);
     }
   }
-
+  
   return (
     <div>
       <h1>Pedido</h1>
@@ -217,26 +215,25 @@ export default function CadPedido() {
             </form>
             {itensPedido.map((item) => {
               return (
-                <>
-                  <div className="buttonApagar">
-                    {item.length !== 0 && ( // não mostrar o array vazio (--) dois tracos em cima dos itens
-                      <>
-                        <h2>
-                          {item.produto} - {item.quantidade} -{" "}
-                          {new Intl.NumberFormat("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                          }).format(`${item.valor}`)}
-                        </h2>
-                        <button onClick={() => handleApagarItem(item.id)}>
-                          Apagar
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </>
+                <div key={item.id} className="buttonApagar">
+                  {/* Verifica se há itens antes de renderizar */}
+                  {item.length !== 0 && (
+                    <>
+                      <h2>
+                        {item.produto} - {item.quantidade} -{" "}
+                        {new Intl.NumberFormat("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        }).format(`${item.valor}`)}
+                      </h2>
+                      {/* Passa o id do item para a função handleItens */}
+                      <button onClick={() => handleItens(item.id)}>Apagar</button>
+                    </>
+                  )}
+                </div>
               );
             })}
+
             {valorTotal !== null && (
               <h1>
                 Valor Total:{" "}
@@ -247,7 +244,7 @@ export default function CadPedido() {
               </h1>
             )}
           </>
-          <button onClick={handleItens}>Limpar itens</button>
+          <button onClick={handleItens}>Apagar</button>
           <button onClick={fecharModal}>Finalizar Pedidos</button>
           <button onClick={handleSair}>Voltar</button>
         </Modal>

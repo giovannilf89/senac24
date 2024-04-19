@@ -34,7 +34,7 @@ export default function ListarPedidoCozinha() {
             console.error('Erro ao aceitar o pedido:', error)
         }
     }
-
+    
     async function handleFinalizar() {
         try {
             const alteraStatus = 'Pedido pronto'
@@ -59,17 +59,13 @@ export default function ListarPedidoCozinha() {
                 <div>
                     <p>Número do Pedido: {pedido.n_pedido}</p>
                     <p>Status: {pedido.status}</p>
-                    <p>Valor Total: {pedido.valor_total}</p>
+                    <p>Valor Total: {pedido.valor_total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                     <p>Entregador: {pedido.entregador}</p>
                 </div>
             )}
             <button onClick={handleAceitar}>Aceitar pedido</button>
             <button onClick={handleFinalizar}>Pedido finalizado</button>
-            <buttob onClick={handleFechar}>Voltar</buttob>
+            <button onClick={handleFechar}>Voltar</button>
         </div>
     )
 }
-
-
-// CORRIGIR A RENDERIZAÇÂO DO VALOR TOTAL
-// Verificar a proxima tela para ser feita

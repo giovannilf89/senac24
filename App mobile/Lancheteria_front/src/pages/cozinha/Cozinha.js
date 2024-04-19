@@ -15,7 +15,7 @@ export default function Cozinha() {
     }, []) // Deixe o array de dependências vazio para que useEffect execute apenas uma vez
 
     return (
-        <>
+        <div>
             <h1>Pedidos</h1>
             {
                 pedidos.map((dado, index) => {
@@ -24,6 +24,6 @@ export default function Cozinha() {
                     )
                 })
             }
-        </>
+        </div>
     )
 }

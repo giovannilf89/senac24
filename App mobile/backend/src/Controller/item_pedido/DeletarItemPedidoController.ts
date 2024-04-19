@@ -5,11 +5,10 @@ import { DeletarItemPedidoServices } from '../../Services/item_pedido/DeletarIte
 class DeletarItemPedidoController {
     async handle(req: Request, res: Response) {
         const { id } = req.params
-        console.log('contrl', id)
 
         const deletarItemPedido = new DeletarItemPedidoServices()
         const deletar = await deletarItemPedido.execute({
-            id
+            id,
         })
         return res.json(deletar)
     }

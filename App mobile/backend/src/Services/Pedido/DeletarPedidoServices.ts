@@ -1,15 +1,15 @@
 import prismaClient from "../../prisma";
 
 interface DeletarPedido {
-    remover: string
+    id: string
 }
 
 
 class DeletarPedidoServices {
-    async execute({ remover }: DeletarPedido) {
+    async execute({ id }: DeletarPedido) {
         await prismaClient.pedido.delete({
             where: {
-                id: remover,
+                id: id,
             }
         })
         return { dados: "Registro apagado com sucesso" }
